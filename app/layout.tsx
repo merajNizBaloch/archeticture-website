@@ -4,6 +4,7 @@ import "./interaction.css";
 import "./transitions.css";
 import "./showcase.css";
 import "./v3.css";
+import "./brand.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ArchitectureCursor from "@/components/ArchitectureCursor";
 import ProjectMotion from "@/components/ProjectMotion";
