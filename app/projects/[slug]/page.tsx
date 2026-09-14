@@ -35,10 +35,20 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.intro,
+    alternates: {
+      canonical: "/projects/" + project.slug,
+    },
     openGraph: {
       title: project.title,
       description: project.intro,
+      url: "/projects/" + project.slug,
       images: [{ url: project.image, alt: project.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.intro,
+      images: [project.image],
     },
   };
 }
