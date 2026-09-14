@@ -102,6 +102,7 @@
   position: absolute;
   inset: 0;
   background: #fff;
+  transform: scaleY(var(--project-reading-progress, 0));
   transform-origin: top center;
   transition: transform 100ms linear;
 }
@@ -143,6 +144,13 @@
 .project-reading-progress button.is-active {
   color: #fff;
   transform: translateX(-.25rem);
+}
+
+.project-index-card-content {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 0.95fr) 1fr auto;
 }
 
 /* Better focus visibility without compromising the editorial aesthetic. */
@@ -222,6 +230,7 @@ select:focus-visible {
   }
 
   .project-reading-progress-track > span {
+    transform: scaleX(var(--project-reading-progress, 0));
     transform-origin: left center;
   }
 
