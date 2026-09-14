@@ -139,14 +139,15 @@ export default function ProjectTransitionLink({
         aria-hidden="true"
       >
         <div className="project-transition-media">
-          <Image
-            src={image}
-            alt=""
-            fill
-            sizes="100vw"
-            className="cover-image"
-            priority={false}
-          />
+          {transitioning && (
+            <Image
+              src={image}
+              alt=""
+              fill
+              sizes="100vw"
+              className="cover-image"
+            />
+          )}
           <div className="project-transition-shade" />
         </div>
 
