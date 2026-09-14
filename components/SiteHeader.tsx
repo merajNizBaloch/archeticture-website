@@ -10,7 +10,7 @@ const items = [
   { label: "Projects", href: "/#projects", number: "01" },
   { label: "Studio", href: "/#studio", number: "02" },
   { label: "Services", href: "/#services", number: "03" },
-  { label: "Contact", href: "/#contact", number: "04" },
+  { label: "Contact", href: "/#final-contact", number: "04" },
 ];
 
 export default function SiteHeader() {
@@ -92,7 +92,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="header-actions">
-          <Link href="/#contact" className="header-cta">
+          <Link href="/#final-contact" className="header-cta">
             Start a project
             <ArrowUpRight size={15} strokeWidth={1.5} />
           </Link>
