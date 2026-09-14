@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./interaction.css";
+import "./transitions.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ArchitectureCursor from "@/components/ArchitectureCursor";
+import ProjectMotion from "@/components/ProjectMotion";
 
 export const metadata: Metadata = {
   title: "Architecture Studio — Selected Works",
@@ -19,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ArchitectureCursor />
+        <ProjectMotion />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
