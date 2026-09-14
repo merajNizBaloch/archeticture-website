@@ -133,3 +133,27 @@ NEXT_PUBLIC_SITE_URL=https://your-final-domain.com
 ```
 
 It is used for metadata and the generated sitemap. Local development automatically falls back to `http://localhost:3000`.
+
+
+## Project case-study fields
+
+Each project in `lib/projects.ts` now supports a full architecture case study:
+
+- `intro` — short project overview
+- `context` — site and environmental response
+- `concept` — design concept
+- `strategies` — numbered design decisions
+- `materials` — material palette
+- `drawings` — plan/section/elevation study labels
+- `credits` — project information and scope
+- `gallery` — five images used across the editorial gallery sequence
+
+The current SVG drawings are intentionally diagrammatic placeholders. Replace them with real architectural plans/sections when project documentation is available.
+
+For best results, provide at least five high-resolution images per project in this order:
+
+1. primary spatial view
+2. large secondary view
+3. vertical/detail view
+4. full-width atmosphere view
+5. final detail/material view
