@@ -109,6 +109,8 @@ export default function HomeExperienceV2() {
         );
 
         gsap.set(layers.slice(1), { clipPath: "inset(100% 0 0 0)" });
+        gsap.set(metas, { pointerEvents: "none" });
+        gsap.set(metas[0], { pointerEvents: "auto" });
         gsap.set(metas.slice(1), { opacity: 0, y: 28 });
 
         const sequence = gsap.timeline();
@@ -117,6 +119,7 @@ export default function HomeExperienceV2() {
           const at = index - 1;
 
           sequence
+            .set(metas[index - 1], { pointerEvents: "none" }, at)
             .to(metas[index - 1], { opacity: 0, y: -24, duration: 0.22 }, at)
             .to(
               layers[index],
@@ -127,6 +130,7 @@ export default function HomeExperienceV2() {
               },
               at,
             )
+            .set(metas[index], { pointerEvents: "auto" }, at + 0.48)
             .to(
               metas[index],
               { opacity: 1, y: 0, duration: 0.28 },
