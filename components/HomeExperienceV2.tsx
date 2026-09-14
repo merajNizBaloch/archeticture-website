@@ -8,20 +8,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SiteHeader from "@/components/SiteHeader";
 import { projects } from "@/lib/projects";
-
-const services = [
-  ["01", "Architecture", "Concept, planning and spatial design"],
-  ["02", "Interior Architecture", "Material, lighting and atmosphere"],
-  ["03", "Planning", "Site strategy and technical coordination"],
-  ["04", "Project Delivery", "Documentation and execution support"],
-];
-
-const process = [
-  ["01", "Observe", "Site, climate, movement and context."],
-  ["02", "Define", "Brief, program and spatial strategy."],
-  ["03", "Shape", "Drawings, models and material studies."],
-  ["04", "Deliver", "Detail, coordination and construction."],
-];
+import { process, services, site } from "@/lib/site";
 
 export default function HomeExperienceV2() {
   const root = useRef<HTMLElement>(null);
@@ -208,8 +195,8 @@ export default function HomeExperienceV2() {
         </div>
 
         <div className="hero-kicker">
-          <span>Architecture / Interiors</span>
-          <span>Pakistan · 2026</span>
+          <span>{site.descriptor.replace(" · Spatial Design", "")}</span>
+          <span>{site.location} · {site.year}</span>
         </div>
 
         <div className="hero-copy">
@@ -221,7 +208,7 @@ export default function HomeExperienceV2() {
         </div>
 
         <div className="hero-footer">
-          <p>Spaces shaped around climate, material,<br />context and the people who inhabit them.</p>
+          <p>{site.statement}</p>
           <div className="scroll-cue">
             <span>Scroll to explore</span>
             <ArrowDown size={16} strokeWidth={1.4} />
@@ -310,11 +297,11 @@ export default function HomeExperienceV2() {
         </div>
 
         <div className="services-list">
-          {services.map(([number, title, note]) => (
-            <div className="service-row" key={number} data-cursor="service">
-              <span className="service-number">{number}</span>
-              <h3>{title}</h3>
-              <p>{note}</p>
+          {services.map((service) => (
+            <div className="service-row" key={service.number} data-cursor="service">
+              <span className="service-number">{service.number}</span>
+              <h3>{service.title}</h3>
+              <p>{service.note}</p>
               <ArrowUpRight size={22} strokeWidth={1.2} />
             </div>
           ))}
@@ -355,11 +342,11 @@ export default function HomeExperienceV2() {
           <h2>From observation to occupation.</h2>
         </div>
         <div className="process-grid">
-          {process.map(([number, title, note]) => (
-            <article className="process-card reveal-copy" key={number}>
-              <span>{number}</span>
-              <h3>{title}</h3>
-              <p>{note}</p>
+          {process.map((step) => (
+            <article className="process-card reveal-copy" key={step.number}>
+              <span>{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.note}</p>
             </article>
           ))}
         </div>
