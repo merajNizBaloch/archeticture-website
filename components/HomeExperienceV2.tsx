@@ -8,7 +8,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SiteHeader from "@/components/SiteHeader";
 import { projects } from "@/lib/projects";
-import { process, services, site } from "@/lib/site";
+import { principles, process, services, site } from "@/lib/site";
 
 export default function HomeExperienceV2() {
   const root = useRef<HTMLElement>(null);
@@ -326,12 +326,14 @@ export default function HomeExperienceV2() {
       </section>
 
       <section className="numbers section-pad">
-        <div className="section-index"><span>04</span><span>Practice</span></div>
+        <div className="section-index"><span>04</span><span>Principles</span></div>
         <div className="numbers-grid reveal-copy">
-          <div><strong>12+</strong><span>Years of practice</span></div>
-          <div><strong>85+</strong><span>Projects developed</span></div>
-          <div><strong>06</strong><span>Cities worked in</span></div>
-          <div><strong>420K</strong><span>Sq. ft. designed</span></div>
+          {principles.map((principle) => (
+            <div key={principle.title}>
+              <strong>{principle.title}</strong>
+              <span>{principle.note}</span>
+            </div>
+          ))}
         </div>
       </section>
 
