@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { projects } from "@/lib/projects";
+import ProjectTransitionLink from "@/components/ProjectTransitionLink";
 
 export default function ProjectsArchive() {
   const types = useMemo(
@@ -35,11 +35,13 @@ export default function ProjectsArchive() {
 
       <div className="archive-grid">
         {visibleProjects.map((project, index) => (
-          <Link
+          <ProjectTransitionLink
             key={project.slug}
             href={"/projects/" + project.slug}
+            image={project.image}
+            title={project.title}
             className={index % 3 === 0 ? "archive-card archive-card-wide" : "archive-card"}
-            data-cursor-label="VIEW"
+            cursorLabel="VIEW"
           >
             <div className="archive-card-media">
               <Image
@@ -64,7 +66,7 @@ export default function ProjectsArchive() {
                 <ArrowUpRight size={20} strokeWidth={1.15} />
               </div>
             </div>
-          </Link>
+          </ProjectTransitionLink>
         ))}
       </div>
     </>
