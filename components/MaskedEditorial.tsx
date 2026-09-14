@@ -69,7 +69,7 @@ export default function MaskedEditorial() {
 
       <div className="masked-editorial-grid">
         <div className="masked-editorial-copy">
-          <p>Architecture / 04</p>
+          <p>07 / Perspective</p>
 
           <h2>
             <span className="masked-line"><span>SPACE IS</span></span>
