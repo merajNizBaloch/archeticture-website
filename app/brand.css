@@ -74,3 +74,18 @@
     font-size: 3.2rem;
   }
 }
+
+
+.desktop-nav a.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.menu-link.is-active .menu-link-number {
+  color: #c8ff42;
+}
+
+.menu-link.is-active .menu-link-line > span::after {
+  content: " ·";
+  color: #c8ff42;
+}
