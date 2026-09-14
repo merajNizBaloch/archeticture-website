@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import HomeExperienceV2 from "@/components/HomeExperienceV2";
 import ProjectIndex from "@/components/ProjectIndex";
 import MaskedEditorial from "@/components/MaskedEditorial";
@@ -7,8 +8,6 @@ import StudioMark from "@/components/StudioMark";
 import { site } from "@/lib/site";
 
 export default function HomePageV3() {
-  const contactHref = site.email ? `mailto:${site.email}` : "#final-contact";
-
   return (
     <div className="homepage-v3">
       <HomeExperienceV2 />
@@ -25,12 +24,12 @@ export default function HomePageV3() {
         <div className="contact-copy">
           <p>Have a site or an idea?</p>
 
-          <a href={contactHref} data-cursor-label={site.email ? "EMAIL" : "HELLO"}>
+          <Link href="/contact" data-cursor-label="START">
             Let&apos;s build
             <br />
             something lasting.
             <ArrowUpRight size={64} strokeWidth={0.8} />
-          </a>
+          </Link>
         </div>
 
         <div className="contact-bottom">
@@ -41,12 +40,6 @@ export default function HomePageV3() {
           <span>{site.descriptor}</span>
           <span>{site.location}</span>
         </div>
-
-        {site.workingIdentity && (
-          <p className="working-identity-note">
-            Working identity — final firm name, logo and contact details can be replaced in lib/site.ts.
-          </p>
-        )}
       </footer>
     </div>
   );
