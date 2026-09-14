@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SiteHeader from "@/components/SiteHeader";
+import ProjectTransitionLink from "@/components/ProjectTransitionLink";
 import { projects } from "@/lib/projects";
 import { principles, process, services, site } from "@/lib/site";
 
@@ -261,13 +261,15 @@ export default function HomeExperienceV2() {
                 <article className="project-meta" key={project.slug}>
                   <div className="project-number">{project.number}</div>
 
-                  <Link
+                  <ProjectTransitionLink
                     href={"/projects/" + project.slug}
+                    image={project.image}
+                    title={project.title}
                     className="project-title-link"
-                    data-cursor-label="VIEW"
+                    cursorLabel="VIEW"
                   >
                     <h3>{project.title}</h3>
-                  </Link>
+                  </ProjectTransitionLink>
 
                   <div className="project-details">
                     <span>{project.location}</span>
@@ -275,14 +277,16 @@ export default function HomeExperienceV2() {
                     <span>{project.year}</span>
                   </div>
 
-                  <Link
+                  <ProjectTransitionLink
                     href={"/projects/" + project.slug}
+                    image={project.image}
+                    title={project.title}
                     className="project-link"
-                    data-cursor-label="VIEW"
+                    cursorLabel="VIEW"
                   >
                     View project
                     <ArrowUpRight size={17} strokeWidth={1.4} />
-                  </Link>
+                  </ProjectTransitionLink>
                 </article>
               ))}
             </div>
