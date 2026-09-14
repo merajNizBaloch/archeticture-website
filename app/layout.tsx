@@ -8,6 +8,7 @@ import "./brand.css";
 import "./pages.css";
 import "./case-study.css";
 import "./mobile-motion.css";
+import "./premium.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ArchitectureCursor from "@/components/ArchitectureCursor";
 import ProjectMotion from "@/components/ProjectMotion";
