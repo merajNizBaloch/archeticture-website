@@ -5,6 +5,8 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
+import StudioMark from "@/components/StudioMark";
+import { site } from "@/lib/site";
 
 const items = [
   { label: "Projects", href: "/#projects", number: "01" },
@@ -74,13 +76,12 @@ export default function SiteHeader() {
   return (
     <>
       <header className="site-header">
-        <Link
-          href="/"
-          className="wordmark"
-          aria-label="Architecture studio home"
-        >
-          <span>STUDIO</span>
-          <span>/ 01</span>
+        <Link href="/" className="wordmark" aria-label={site.name + " home"}>
+          <StudioMark className="wordmark-mark" />
+          <span className="wordmark-copy">
+            <strong>{site.shortName}</strong>
+            <small>/ 01</small>
+          </span>
         </Link>
 
         <nav className="desktop-nav" aria-label="Main navigation">
@@ -104,11 +105,7 @@ export default function SiteHeader() {
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
           >
-            {open ? (
-              <X size={18} strokeWidth={1.5} />
-            ) : (
-              <Menu size={18} strokeWidth={1.5} />
-            )}
+            {open ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
           </button>
         </div>
       </header>
@@ -117,7 +114,7 @@ export default function SiteHeader() {
         <div className="menu-grid">
           <div className="menu-label">
             <span>Navigation</span>
-            <span>Studio / 01</span>
+            <span>{site.name}</span>
           </div>
 
           <nav className="menu-links" aria-label="Overlay navigation">
@@ -139,8 +136,8 @@ export default function SiteHeader() {
           </nav>
 
           <div className="menu-footer">
-            <span>Architecture · Interiors · Spatial Design</span>
-            <span>Pakistan · 2026</span>
+            <span>{site.descriptor}</span>
+            <span>{site.location} · {site.year}</span>
           </div>
         </div>
       </div>
