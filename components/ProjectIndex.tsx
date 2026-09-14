@@ -48,6 +48,17 @@ export default function ProjectIndex() {
         },
       });
 
+      gsap.from(".project-index-title .index-mask > span", {
+        yPercent: 112,
+        duration: 0.95,
+        stagger: 0.1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: ".project-index-title",
+          start: "top 78%",
+        },
+      });
+
       gsap.from(".project-index-card", {
         y: 48,
         opacity: 0,
@@ -107,8 +118,8 @@ export default function ProjectIndex() {
       <div className="project-index-title">
         <p>Browse all selected work</p>
         <h2>
-          <span>PROJECT</span>
-          <span>INDEX</span>
+          <span className="index-mask"><span>PROJECT</span></span>
+          <span className="index-mask"><span>INDEX</span></span>
         </h2>
       </div>
 
