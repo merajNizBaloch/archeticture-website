@@ -74,9 +74,9 @@ export default function SiteHeader() {
   }, [open]);
 
   const isActive = (href: string) => {
-    const path = href.split("#")[0];
-    if (path === "/") return pathname === "/";
-    return pathname === path || pathname.startsWith(path + "/");
+    if (href.includes("#")) return false;
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(href + "/");
   };
 
   return (
