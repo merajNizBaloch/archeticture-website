@@ -2,14 +2,67 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/lib/projects";
 
 export default function ProjectIndex() {
   const preview = useRef<HTMLDivElement>(null);
+  const railViewport = useRef<HTMLDivElement>(null);
+  const rail = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const viewport = railViewport.current;
+    const track = rail.current;
+
+    if (!viewport || !track) return;
+
+    const desktop = window.matchMedia("(min-width: 901px)").matches;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (!desktop || reduceMotion) return;
+
+    const ctx = gsap.context(() => {
+      const distance = () =>
+        Math.max(0, track.scrollWidth - window.innerWidth);
+
+      gsap.to(track, {
+        x: () => -distance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: viewport,
+          start: "top top",
+          end: () => "+=" + Math.max(distance(), window.innerWidth * 1.35),
+          scrub: 0.85,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      gsap.from(".project-index-card", {
+        y: 48,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.08,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: viewport,
+          start: "top 82%",
+        },
+      });
+    }, viewport);
+
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
@@ -47,7 +100,7 @@ export default function ProjectIndex() {
   return (
     <section className="project-index-section">
       <div className="project-index-head">
-        <span>03 / Project index</span>
+        <span>07 / Project index</span>
         <span>{String(projects.length).padStart(2, "0")} selected works</span>
       </div>
 
@@ -59,31 +112,37 @@ export default function ProjectIndex() {
         </h2>
       </div>
 
-      <div className="project-index-list">
-        {projects.map((project, index) => (
-          <Link
-            key={project.slug}
-            href={"/projects/" + project.slug}
-            className="project-index-row"
-            data-cursor-label="OPEN"
-            onMouseEnter={() => {
-              setActive(index);
-              setVisible(true);
-            }}
-            onMouseLeave={() => setVisible(false)}
-          >
-            <span className="project-index-number">{project.number}</span>
+      <div ref={railViewport} className="project-index-rail-viewport">
+        <div ref={rail} className="project-index-rail">
+          {projects.map((project, index) => (
+            <Link
+              key={project.slug}
+              href={"/projects/" + project.slug}
+              className="project-index-card"
+              data-cursor-label="OPEN"
+              onMouseEnter={() => {
+                setActive(index);
+                setVisible(true);
+              }}
+              onMouseLeave={() => setVisible(false)}
+            >
+              <div className="project-index-card-top">
+                <span>{project.number}</span>
+                <span>{project.type}</span>
+              </div>
 
-            <span className="project-index-name">
-              <span>{project.title}</span>
-            </span>
+              <div className="project-index-card-title">
+                <span>{project.title}</span>
+              </div>
 
-            <span className="project-index-location">{project.location}</span>
-            <span className="project-index-year">{project.year}</span>
-
-            <ArrowUpRight size={22} strokeWidth={1.1} />
-          </Link>
-        ))}
+              <div className="project-index-card-bottom">
+                <span>{project.location}</span>
+                <span>{project.year}</span>
+                <ArrowUpRight size={24} strokeWidth={1.05} />
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
 
       <div
