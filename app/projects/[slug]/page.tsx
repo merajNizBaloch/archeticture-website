@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteHeader from "@/components/SiteHeader";
 import { getProject, projects } from "@/lib/projects";
+import { site } from "@/lib/site";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -28,7 +29,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${project.title} — Architecture Studio`,
+    title: project.title,
     description: project.intro,
   };
 }
