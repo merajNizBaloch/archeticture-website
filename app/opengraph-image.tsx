@@ -75,7 +75,7 @@ export default function OpenGraphImage() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "end",
+            alignItems: "flex-end",
             borderTop: "1px solid rgba(240,238,232,.35)",
             paddingTop: 18,
             fontSize: 18,
