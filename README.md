@@ -122,3 +122,14 @@ Replace the temporary Unsplash URLs with the firm's real renders or photography 
 4. Add the real email/phone/address.
 5. Set the final production domain in Vercel.
 6. Run `npm run build` before deployment.
+
+
+## Production site URL
+
+Set this environment variable in Vercel before launch:
+
+```text
+NEXT_PUBLIC_SITE_URL=https://your-final-domain.com
+```
+
+It is used for metadata and the generated sitemap. Local development automatically falls back to `http://localhost:3000`.
