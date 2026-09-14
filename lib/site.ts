@@ -11,10 +11,17 @@ export const site = {
     "Spaces shaped around climate, material, context and the people who inhabit them.",
   email: "",
   phone: "",
+  whatsapp: "",
   address: "",
   instagram: "",
   linkedin: "",
   availability: "New commissions",
+  principal: {
+    name: "",
+    role: "Principal Architect",
+    bio: "",
+    image: "",
+  },
 } as const;
 
 export const services = [
