@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/lib/projects";
 
 export default function ProjectIndex() {
+  const section = useRef<HTMLElement>(null);
   const preview = useRef<HTMLDivElement>(null);
   const railViewport = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLDivElement>(null);
@@ -86,7 +87,7 @@ export default function ProjectIndex() {
               start: "top 82%",
             },
           });
-        }, viewport);
+        }, section);
 
         return () => ctx.revert();
       },
@@ -129,7 +130,7 @@ export default function ProjectIndex() {
   }, []);
 
   return (
-    <section className="project-index-section">
+    <section ref={section} className="project-index-section">
       <div className="project-index-head">
         <span>06 / Project index</span>
         <span>{String(projects.length).padStart(2, "0")} selected works</span>
