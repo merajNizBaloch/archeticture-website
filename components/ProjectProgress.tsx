@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { CSSProperties, useEffect, useMemo, useState } from "react";
 
 export type ProjectProgressItem = {
   id: string;
@@ -69,9 +69,13 @@ export default function ProjectProgress({
   };
 
   return (
-    <aside className="project-reading-progress" aria-label="Project sections">
+    <aside
+      className="project-reading-progress"
+      aria-label="Project sections"
+      style={{ "--project-reading-progress": progress } as CSSProperties}
+    >
       <div className="project-reading-progress-track" aria-hidden="true">
-        <span style={{ transform: `scaleY(${progress})` }} />
+        <span />
       </div>
 
       <div className="project-reading-progress-items">
