@@ -362,3 +362,66 @@ select:focus-visible {
     justify-content: flex-start;
   }
 }
+
+
+/* Optional principal architect section. It renders only when real content is configured. */
+.studio-principal {
+  padding: 8rem 2rem;
+  background: #111;
+  color: var(--white);
+}
+
+.studio-principal .studio-section-head {
+  border-color: rgba(255,255,255,.22);
+  color: rgba(255,255,255,.52);
+}
+
+.studio-principal-grid {
+  display: grid;
+  grid-template-columns: minmax(22rem, .72fr) minmax(0, 1fr);
+  gap: 7vw;
+  align-items: end;
+  margin-top: 5rem;
+}
+
+.studio-principal-media {
+  position: relative;
+  min-height: 78svh;
+  overflow: hidden;
+  background: #222;
+}
+
+.studio-principal-copy h2 {
+  margin: 0 0 2rem;
+  font-size: clamp(4.5rem, 8vw, 8.5rem);
+  font-weight: 500;
+  line-height: .82;
+  letter-spacing: -.075em;
+}
+
+.studio-principal-copy > p:last-child {
+  max-width: 36rem;
+  margin: 0;
+  color: rgba(255,255,255,.62);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .studio-principal {
+    padding: 6rem 1.1rem;
+  }
+
+  .studio-principal-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .studio-principal-media {
+    min-height: 72svh;
+  }
+
+  .studio-principal-copy h2 {
+    font-size: clamp(4rem, 15vw, 6rem);
+  }
+}
