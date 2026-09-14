@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Studio",
   description:
     "Architecture practice focused on context, light, material and precise project delivery.",
+  alternates: {
+    canonical: "/studio",
+  },
 };
 
 export default function StudioPage() {
@@ -59,6 +62,33 @@ export default function StudioPage() {
           className="cover-image"
         />
       </section>
+
+      {site.principal.name && site.principal.bio && site.principal.image && (
+        <section className="studio-principal">
+          <div className="studio-section-head">
+            <span>Studio / Principal</span>
+            <span>{site.principal.role}</span>
+          </div>
+
+          <div className="studio-principal-grid">
+            <div className="studio-principal-media">
+              <Image
+                src={site.principal.image}
+                alt={site.principal.name}
+                fill
+                sizes="(max-width: 900px) 100vw, 42vw"
+                className="cover-image"
+              />
+            </div>
+
+            <div className="studio-principal-copy">
+              <p className="eyebrow">{site.principal.role}</p>
+              <h2>{site.principal.name}</h2>
+              <p>{site.principal.bio}</p>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="studio-principles">
         <div className="studio-section-head">
