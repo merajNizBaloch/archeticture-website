@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Grid2X2 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
+import ProjectTransitionLink from "@/components/ProjectTransitionLink";
+import ProjectProgress from "@/components/ProjectProgress";
 import ProjectDiagram from "@/components/ProjectDiagram";
 import { getProject, projects } from "@/lib/projects";
 import { site } from "@/lib/site";
@@ -57,6 +59,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <main className="project-page project-page-v2">
       <SiteHeader />
+      <ProjectProgress
+        items={[
+          { id: "overview", number: "01", label: "Overview" },
+          { id: "context", number: "02", label: "Context" },
+          { id: "concept", number: "03", label: "Concept" },
+          { id: "drawings", number: "04", label: "Drawings" },
+          { id: "materials", number: "05", label: "Materials" },
+          { id: "detail", number: "06", label: "Detail" },
+          { id: "credits", number: "07", label: "Credits" },
+        ]}
+      />
 
       <section className="case-hero">
         <div className="case-hero-media">
@@ -88,7 +101,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="case-intro case-section">
+      <section id="overview" className="case-intro case-section">
         <div className="case-index">
           <span>01</span>
           <span>Overview</span>
@@ -136,7 +149,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="case-context case-section">
+      <section id="context" className="case-context case-section">
         <div className="case-index">
           <span>02</span>
           <span>Context</span>
@@ -186,7 +199,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="case-concept case-section">
+      <section id="concept" className="case-concept case-section">
         <div className="case-index">
           <span>03</span>
           <span>Concept</span>
@@ -198,7 +211,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="case-drawings case-section">
+      <section id="drawings" className="case-drawings case-section">
         <div className="case-index case-index-light">
           <span>04</span>
           <span>Drawings</span>
@@ -228,7 +241,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="case-materials case-section">
+      <section id="materials" className="case-materials case-section">
         <div className="case-index">
           <span>05</span>
           <span>Material language</span>
@@ -262,7 +275,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="case-wide-index">04 / Atmosphere</div>
       </section>
 
-      <section className="case-final-gallery">
+      <section id="detail" className="case-final-gallery">
         <div className="case-final-gallery-copy">
           <span>06 / Detail</span>
           <p>
@@ -283,7 +296,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="case-credits case-section">
+      <section id="credits" className="case-credits case-section">
         <div className="case-index">
           <span>07</span>
           <span>Project information</span>
@@ -315,17 +328,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </section>
 
       <nav className="case-project-nav" aria-label="Project navigation">
-        <Link
+        <ProjectTransitionLink
           href={"/projects/" + previousProject.slug}
+          image={previousProject.image}
+          title={previousProject.title}
           className="case-project-nav-side"
-          data-cursor-label="PREV"
+          cursorLabel="PREV"
         >
           <ArrowLeft size={18} strokeWidth={1.2} />
           <span>
             <small>Previous</small>
             {previousProject.title}
           </span>
-        </Link>
+        </ProjectTransitionLink>
 
         <Link
           href="/projects"
@@ -336,28 +351,32 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           All projects
         </Link>
 
-        <Link
+        <ProjectTransitionLink
           href={"/projects/" + nextProject.slug}
+          image={nextProject.image}
+          title={nextProject.title}
           className="case-project-nav-side case-project-nav-next"
-          data-cursor-label="NEXT"
+          cursorLabel="NEXT"
         >
           <span>
             <small>Next</small>
             {nextProject.title}
           </span>
           <ArrowRight size={18} strokeWidth={1.2} />
-        </Link>
+        </ProjectTransitionLink>
       </nav>
 
       <section className="case-next">
         <p>{site.name} · Next project / {nextProject.number}</p>
-        <Link
+        <ProjectTransitionLink
           href={"/projects/" + nextProject.slug}
-          data-cursor-label="NEXT"
+          image={nextProject.image}
+          title={nextProject.title}
+          cursorLabel="NEXT"
         >
           <span>{nextProject.title}</span>
           <span aria-hidden="true">↗</span>
-        </Link>
+        </ProjectTransitionLink>
         <div className="case-next-meta">
           <span>{nextProject.location}</span>
           <span>{nextProject.year}</span>
