@@ -146,11 +146,15 @@
   transform: translateX(-.25rem);
 }
 
+.project-index-card {
+  display: block;
+}
+
 .project-index-card-content {
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-rows: auto minmax(0, 0.95fr) 1fr auto;
+  grid-template-rows: auto 1fr auto;
 }
 
 /* Better focus visibility without compromising the editorial aesthetic. */
@@ -269,14 +273,22 @@ select:focus-visible {
     grid-template-rows: auto 1fr auto auto;
   }
 
+  .project-index-card-content {
+    grid-template-rows: auto minmax(0, .95fr) 1fr auto;
+  }
+
   .menu-feature {
+    display: block;
+    margin: 1rem 0 1.2rem;
+    padding-top: .9rem;
+    border-top: 1px solid rgba(255,255,255,.2);
+  }
+
+  .menu-feature-link {
     display: grid;
     grid-template-columns: 7.5rem 1fr;
     gap: 1rem;
     align-items: end;
-    margin: 1rem 0 1.2rem;
-    padding-top: .9rem;
-    border-top: 1px solid rgba(255,255,255,.2);
   }
 
   .menu-feature-media {
@@ -323,5 +335,30 @@ select:focus-visible {
 
   .project-reading-progress-track > span {
     transition: none;
+  }
+}
+
+
+.inquiry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .65rem;
+}
+
+.inquiry-submit-row .inquiry-secondary {
+  background: transparent;
+  color: var(--white);
+}
+
+.inquiry-submit-row .inquiry-secondary:hover,
+.inquiry-submit-row .inquiry-secondary:active {
+  background: var(--white);
+  color: #111;
+}
+
+@media (max-width: 900px) {
+  .inquiry-actions {
+    justify-content: flex-start;
   }
 }
