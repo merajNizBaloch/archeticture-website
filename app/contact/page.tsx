@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Start an architecture or interior architecture project with the studio.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {
