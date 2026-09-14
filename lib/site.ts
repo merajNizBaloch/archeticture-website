@@ -62,3 +62,23 @@ export const process = [
     note: "Detail, coordination and construction.",
   },
 ] as const;
+
+
+export const principles = [
+  {
+    title: "Context",
+    note: "Architecture shaped by site, climate and surrounding life.",
+  },
+  {
+    title: "Light",
+    note: "Daylight treated as a material that defines space and time.",
+  },
+  {
+    title: "Material",
+    note: "A restrained palette selected for character, craft and durability.",
+  },
+  {
+    title: "Detail",
+    note: "Ideas carried consistently from first sketch to construction detail.",
+  },
+] as const;
