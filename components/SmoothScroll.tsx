@@ -15,8 +15,14 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
 
     if (reduceMotion) return;
 
+    ScrollTrigger.config({
+      ignoreMobileResize: true,
+    });
+
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+
     const lenis = new Lenis({
-      duration: 1.05,
+      duration: isTouch ? 0.85 : 1.05,
       smoothWheel: true,
       wheelMultiplier: 0.9,
       touchMultiplier: 1,
@@ -28,10 +34,29 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       lenis.raf(time * 1000);
     };
 
+    let refreshTimer = 0;
+    const scheduleRefresh = () => {
+      window.clearTimeout(refreshTimer);
+      refreshTimer = window.setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 180);
+    };
+
+    const onLoad = () => scheduleRefresh();
+    const onOrientation = () => scheduleRefresh();
+
+    window.addEventListener("load", onLoad);
+    window.addEventListener("orientationchange", onOrientation);
+
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
+    scheduleRefresh();
+
     return () => {
+      window.clearTimeout(refreshTimer);
+      window.removeEventListener("load", onLoad);
+      window.removeEventListener("orientationchange", onOrientation);
       gsap.ticker.remove(tick);
       lenis.destroy();
     };
