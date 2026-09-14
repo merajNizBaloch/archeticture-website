@@ -1,0 +1,251 @@
+/* =========================================================
+   MOBILE MOTION PARITY
+   Keeps desktop motion language on touch devices.
+   ========================================================= */
+
+.project-index-card-mobile-image {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  html,
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  .hero,
+  .projects-sticky,
+  .project-index-rail-viewport,
+  .case-hero,
+  .contact,
+  .contact-page-hero,
+  .not-found-page {
+    min-height: 100svh;
+  }
+
+  /* Preserve the desktop horizontal project-index motion on mobile. */
+  .project-index-section {
+    padding: 6rem 1.1rem 0;
+  }
+
+  .project-index-rail-viewport {
+    height: 100svh;
+    overflow: hidden;
+    margin: 0 -1.1rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .project-index-rail {
+    display: flex;
+    width: max-content;
+    height: 100%;
+  }
+
+  .project-index-card {
+    width: 88vw;
+    height: 100%;
+    min-height: 0;
+    padding: 1.1rem;
+    grid-template-rows: auto minmax(0, 0.95fr) auto 1fr auto;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+  }
+
+  .project-index-card-mobile-image {
+    position: relative;
+    display: block;
+    min-height: 34svh;
+    margin: 1rem 0 1.4rem;
+    overflow: hidden;
+    background: #d7d3ca;
+  }
+
+  .project-index-card-mobile-image img {
+    transform: scale(1.04);
+    transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .project-index-card:active .project-index-card-mobile-image img {
+    transform: scale(1.08);
+  }
+
+  .project-index-card-title {
+    align-items: end;
+  }
+
+  .project-index-card-title > span {
+    max-width: 8ch;
+    font-size: clamp(3.8rem, 15vw, 6.2rem);
+    line-height: 0.82;
+  }
+
+  .project-index-card-bottom {
+    align-items: end;
+  }
+
+  /* Keep project CTA available on touch. */
+  .project-link {
+    display: inline-flex;
+    width: max-content;
+    grid-column: 2;
+    margin-top: 0.8rem;
+  }
+
+  .project-link:active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Do not hide supporting service copy on mobile. */
+  .service-row {
+    grid-template-columns: 2.5rem 1fr auto;
+    row-gap: 0.5rem;
+    padding: 1.15rem 0;
+  }
+
+  .service-row p {
+    display: block;
+    grid-column: 2 / -1;
+    max-width: 26rem;
+    padding-bottom: 0.7rem;
+  }
+
+  .service-row:active {
+    padding-left: 0.55rem;
+    padding-right: 0.55rem;
+    background: rgba(20, 20, 20, 0.035);
+  }
+
+  /* Preserve layered project-image movement rather than flattening it. */
+  .project-image {
+    transform: scale(1.04);
+  }
+
+  /* Keep editorial mask movement with a mobile-friendly layout. */
+  .masked-editorial-grid {
+    min-height: 100svh;
+  }
+
+  .masked-editorial-copy {
+    min-height: 72svh;
+  }
+
+  .masked-editorial-media {
+    min-height: 78svh;
+  }
+
+  .masked-line-offset {
+    padding-left: 7vw;
+  }
+
+  /* Touch equivalents for desktop hover transitions. */
+  .menu-link:active .menu-link-line > span {
+    transform: translateX(0.8rem);
+  }
+
+  .menu-link:active svg,
+  .archive-card:active .archive-card-meta svg,
+  .case-next > a:active span:last-child {
+    transform: rotate(45deg);
+  }
+
+  .archive-card:active .archive-card-media img {
+    transform: scale(1.055);
+  }
+
+  .project-title-link:active h3 {
+    transform: translateX(0.35rem);
+    letter-spacing: -0.072em;
+  }
+
+  .inquiry-submit-row button:active {
+    background: transparent;
+    color: var(--white);
+  }
+
+  /* Keep image-parallax sections tall enough to feel cinematic. */
+  .statement {
+    min-height: 100svh;
+  }
+
+  .case-image-full,
+  .case-wide-image {
+    min-height: 92svh;
+  }
+
+  .case-gallery-large {
+    min-height: 82svh;
+  }
+
+  .case-gallery-small {
+    min-height: 70svh;
+  }
+
+  .case-final-gallery-media {
+    min-height: 78svh;
+  }
+
+  /* GPU compositing for animated mobile layers. */
+  .hero-media-inner,
+  .project-layer,
+  .project-index-rail,
+  .bridge-track,
+  .masked-line > span,
+  .masked-editorial-media img,
+  .case-hero-media img,
+  .case-image-full img,
+  .case-gallery-large img,
+  .case-gallery-small img,
+  .case-wide-image img,
+  .case-final-gallery-media img {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-copy h1 {
+    font-size: clamp(4.5rem, 21vw, 7rem);
+  }
+
+  .hero-copy-line-indent {
+    padding-left: 8vw;
+  }
+
+  .projects-shell {
+    height: 420vh;
+  }
+
+  .project-index-card {
+    width: 90vw;
+  }
+
+  .project-index-card-mobile-image {
+    min-height: 32svh;
+  }
+
+  .project-index-card-bottom span:nth-child(2) {
+    display: inline;
+  }
+
+  .masked-editorial-copy h2 {
+    font-size: clamp(4rem, 16vw, 5.6rem);
+  }
+
+  .masked-line-offset {
+    padding-left: 5vw;
+  }
+
+  .contact-copy a {
+    font-size: clamp(3.8rem, 17vw, 5.4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-index-card-mobile-image img,
+  .archive-card-media img {
+    transform: none !important;
+  }
+}
