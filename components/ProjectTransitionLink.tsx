@@ -126,6 +126,8 @@ export default function ProjectTransitionLink({
         className={className}
         data-cursor-label={cursorLabel}
         aria-busy={transitioning}
+        onPointerEnter={() => router.prefetch(href)}
+        onTouchStart={() => router.prefetch(href)}
         onClick={handleClick}
       >
         {children}
