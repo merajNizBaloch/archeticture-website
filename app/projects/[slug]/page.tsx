@@ -154,7 +154,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </section>
 
       <section className="case-next">
-        <p>Next project / {nextProject.number}</p>
+        <p>{site.name} · Next project / {nextProject.number}</p>
         <Link
           href={`/projects/${nextProject.slug}`}
           data-cursor-label="NEXT"
