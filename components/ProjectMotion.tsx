@@ -46,7 +46,9 @@ export default function ProjectMotion() {
       });
 
       gsap.utils
-        .toArray<HTMLElement>(".case-intro-grid, .case-concept-grid, .case-facts")
+        .toArray<HTMLElement>(
+          ".case-intro-grid, .case-context-grid, .case-concept-grid, .case-materials-grid, .case-credits-grid",
+        )
         .forEach((element) => {
           gsap.from(element, {
             y: 64,
@@ -62,7 +64,7 @@ export default function ProjectMotion() {
 
       gsap.utils
         .toArray<HTMLElement>(
-          ".case-image-full, .case-gallery-large, .case-gallery-small",
+          ".case-image-full, .case-gallery-large, .case-gallery-small, .case-wide-image, .case-final-gallery-media",
         )
         .forEach((element) => {
           const image = element.querySelector("img");
@@ -83,6 +85,7 @@ export default function ProjectMotion() {
               { scale: 1.08 },
               {
                 scale: 1,
+                yPercent: element.classList.contains("case-wide-image") ? 5 : 0,
                 ease: "none",
                 scrollTrigger: {
                   trigger: element,
@@ -94,6 +97,57 @@ export default function ProjectMotion() {
             );
           }
         });
+
+      gsap.utils.toArray<HTMLElement>(".case-drawing").forEach((drawing, index) => {
+        gsap.from(drawing, {
+          y: 52,
+          opacity: 0,
+          duration: 0.9,
+          delay: index * 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: drawing,
+            start: "top 86%",
+          },
+        });
+      });
+
+      gsap.utils.toArray<HTMLElement>(".case-material").forEach((material, index) => {
+        gsap.from(material, {
+          x: 34,
+          opacity: 0,
+          duration: 0.65,
+          delay: index * 0.06,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: material,
+            start: "top 90%",
+          },
+        });
+      });
+
+      gsap.from(".case-final-gallery-copy", {
+        y: 36,
+        opacity: 0,
+        duration: 0.85,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".case-final-gallery",
+          start: "top 78%",
+        },
+      });
+
+      gsap.from(".case-project-nav > a", {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.08,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".case-project-nav",
+          start: "top 88%",
+        },
+      });
     });
 
     return () => ctx.revert();
