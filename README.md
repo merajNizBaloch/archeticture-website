@@ -157,3 +157,64 @@ For best results, provide at least five high-resolution images per project in th
 3. vertical/detail view
 4. full-width atmosphere view
 5. final detail/material view
+
+
+## Premium interaction system
+
+The site now includes:
+
+- cinematic project-opening transitions from the homepage, project index, archive and next/previous project links
+- route prefetching before project transitions
+- desktop + mobile project case-study progress navigation
+- mobile motion parity for pinned project sequences and horizontal project browsing
+- touch equivalents for desktop hover interactions
+- mobile viewport and orientation-change handling for GSAP / ScrollTrigger
+- responsive AVIF/WebP image optimization and longer image caching
+- canonical metadata for the main routes and project pages
+- project-specific Open Graph / Twitter metadata
+- schema.org ProfessionalService structured data
+- WhatsApp-ready project inquiry flow
+- optional principal architect section
+- conditional social/contact links in the full-screen navigation
+
+## Contact and principal configuration
+
+These fields live in `lib/site.ts` and can be filled later without rebuilding the page structure:
+
+```ts
+email: ""
+phone: ""
+whatsapp: ""
+address: ""
+instagram: ""
+linkedin: ""
+
+principal: {
+  name: "",
+  role: "Principal Architect",
+  bio: "",
+  image: "",
+}
+```
+
+For WhatsApp, use the international number including country code, for example:
+
+```text
++92XXXXXXXXXX
+```
+
+When `whatsapp` is configured, the project inquiry form prepares the complete client brief and opens WhatsApp with that message. If WhatsApp is not configured, it falls back to email, then to copying the brief.
+
+The principal architect section remains completely hidden until `name`, `bio` and `image` are all supplied. A local image path such as `/images/principal.jpg` is recommended.
+
+## Final content still required before public launch
+
+The remaining work is content, not page architecture:
+
+- replace demo Unsplash imagery with the firm's real photography/renders
+- replace demo project names/details with real projects
+- replace diagrammatic drawing placeholders with real plans/sections/elevations where available
+- fill the final contact/social fields
+- fill principal architect details if that section is wanted
+- set `NEXT_PUBLIC_SITE_URL` to the final production domain
+- run a final production build and real-device QA after the final imagery is in place
