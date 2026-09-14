@@ -56,3 +56,21 @@
     max-width: 24rem;
   }
 }
+
+
+/* Qualitative principle grid replaces unverified firm statistics. */
+.numbers-grid strong {
+  font-size: clamp(2.5rem, 4.5vw, 5rem);
+  line-height: 0.9;
+}
+
+.numbers-grid span {
+  max-width: 17rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 600px) {
+  .numbers-grid strong {
+    font-size: 3.2rem;
+  }
+}
