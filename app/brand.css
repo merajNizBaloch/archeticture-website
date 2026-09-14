@@ -1,0 +1,58 @@
+/* =========================================================
+   WORKING BRAND SYSTEM
+   ========================================================= */
+
+.wordmark {
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.wordmark-mark {
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+}
+
+.wordmark-copy {
+  display: flex;
+  align-items: baseline;
+  gap: 0.28rem;
+}
+
+.wordmark-copy strong,
+.wordmark-copy small {
+  font: inherit;
+  font-weight: 700;
+}
+
+.contact-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.contact-mark {
+  width: 1.65rem;
+  height: 1.65rem;
+  flex: 0 0 auto;
+}
+
+.working-identity-note {
+  max-width: 34rem;
+  margin: 1.3rem 0 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.62rem;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .wordmark-copy small {
+    display: none;
+  }
+
+  .working-identity-note {
+    max-width: 24rem;
+  }
+}
