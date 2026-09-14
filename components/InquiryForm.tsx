@@ -35,10 +35,25 @@ export default function InquiryForm() {
       return;
     }
 
-    navigator.clipboard.writeText(brief).then(() => {
+    const copyBrief = async () => {
+      try {
+        await navigator.clipboard.writeText(brief);
+      } catch {
+        const textarea = document.createElement("textarea");
+        textarea.value = brief;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2200);
-    });
+    };
+
+    void copyBrief();
   };
 
   return (
