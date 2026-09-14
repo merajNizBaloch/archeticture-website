@@ -7,11 +7,38 @@ import "./v3.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ArchitectureCursor from "@/components/ArchitectureCursor";
 import ProjectMotion from "@/components/ProjectMotion";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Architecture Studio — Selected Works",
-  description:
-    "A cinematic architecture portfolio focused on space, material, light and built work.",
+  title: {
+    default: `${site.name} — Architecture`,
+    template: `%s — ${site.name}`,
+  },
+  description: site.statement,
+  applicationName: site.name,
+  category: "architecture",
+  keywords: [
+    "architecture",
+    "interior architecture",
+    "spatial design",
+    "architecture studio",
+    site.location,
+  ],
+  openGraph: {
+    title: `${site.name} — Architecture`,
+    description: site.statement,
+    type: "website",
+    locale: "en_PK",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — Architecture`,
+    description: site.statement,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
