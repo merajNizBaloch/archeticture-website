@@ -14,9 +14,32 @@ import ArchitectureCursor from "@/components/ArchitectureCursor";
 import ProjectMotion from "@/components/ProjectMotion";
 import { site } from "@/lib/site";
 
-const metadataBase = new URL(
-  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-);
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "http://localhost:3000";
+
+const metadataBase = new URL(siteUrl);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  url: siteUrl,
+  description: site.statement,
+  areaServed: site.location,
+  ...(site.email ? { email: site.email } : {}),
+  ...(site.phone ? { telephone: site.phone } : {}),
+  ...(site.address
+    ? {
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: site.address,
+          addressCountry: "PK",
+        },
+      }
+    : {}),
+  sameAs: [site.instagram, site.linkedin].filter(Boolean),
+};
 
 export const metadata: Metadata = {
   metadataBase,
@@ -59,6 +82,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <ArchitectureCursor />
         <ProjectMotion />
         <SmoothScroll>{children}</SmoothScroll>
