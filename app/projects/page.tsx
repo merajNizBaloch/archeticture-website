@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Projects",
   description:
     "Selected architecture, interior architecture and spatial design projects.",
+  alternates: {
+    canonical: "/projects",
+  },
 };
 
 export default function ProjectsPage() {
