@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/lib/projects";
+import ProjectTransitionLink from "@/components/ProjectTransitionLink";
 
 export default function ProjectIndex() {
   const section = useRef<HTMLElement>(null);
@@ -147,17 +147,24 @@ export default function ProjectIndex() {
       <div ref={railViewport} className="project-index-rail-viewport">
         <div ref={rail} className="project-index-rail">
           {projects.map((project, index) => (
-            <Link
+            <ProjectTransitionLink
               key={project.slug}
               href={"/projects/" + project.slug}
+              image={project.image}
+              title={project.title}
               className="project-index-card"
-              data-cursor-label="OPEN"
-              onMouseEnter={() => {
-                setActive(index);
-                setVisible(true);
-              }}
-              onMouseLeave={() => setVisible(false)}
+              cursorLabel="OPEN"
             >
+              <div
+                className="project-index-card-content"
+                onPointerEnter={() => {
+                  if (window.matchMedia("(pointer: fine)").matches) {
+                    setActive(index);
+                    setVisible(true);
+                  }
+                }}
+                onPointerLeave={() => setVisible(false)}
+              >
               <div className="project-index-card-top">
                 <span>{project.number}</span>
                 <span>{project.type}</span>
@@ -182,7 +189,8 @@ export default function ProjectIndex() {
                 <span>{project.year}</span>
                 <ArrowUpRight size={24} strokeWidth={1.05} />
               </div>
-            </Link>
+              </div>
+            </ProjectTransitionLink>
           ))}
         </div>
       </div>
