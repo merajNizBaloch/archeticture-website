@@ -111,7 +111,7 @@ export default function ProjectIndex() {
   return (
     <section className="project-index-section">
       <div className="project-index-head">
-        <span>07 / Project index</span>
+        <span>06 / Project index</span>
         <span>{String(projects.length).padStart(2, "0")} selected works</span>
       </div>
 
