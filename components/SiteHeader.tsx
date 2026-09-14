@@ -9,10 +9,10 @@ import StudioMark from "@/components/StudioMark";
 import { site } from "@/lib/site";
 
 const items = [
-  { label: "Projects", href: "/#projects", number: "01" },
-  { label: "Studio", href: "/#studio", number: "02" },
-  { label: "Services", href: "/#services", number: "03" },
-  { label: "Contact", href: "/#final-contact", number: "04" },
+  { label: "Projects", href: "/projects", number: "01" },
+  { label: "Studio", href: "/studio", number: "02" },
+  { label: "Services", href: "/studio#services", number: "03" },
+  { label: "Contact", href: "/contact", number: "04" },
 ];
 
 export default function SiteHeader() {
@@ -73,6 +73,12 @@ export default function SiteHeader() {
     };
   }, [open]);
 
+  const isActive = (href: string) => {
+    const path = href.split("#")[0];
+    if (path === "/") return pathname === "/";
+    return pathname === path || pathname.startsWith(path + "/");
+  };
+
   return (
     <>
       <header className="site-header">
@@ -86,14 +92,18 @@ export default function SiteHeader() {
 
         <nav className="desktop-nav" aria-label="Main navigation">
           {items.slice(0, 3).map((item) => (
-            <Link key={item.href} href={item.href}>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={isActive(item.href) ? "is-active" : ""}
+            >
               {item.label}
             </Link>
           ))}
         </nav>
 
         <div className="header-actions">
-          <Link href="/#final-contact" className="header-cta">
+          <Link href="/contact" className="header-cta">
             Start a project
             <ArrowUpRight size={15} strokeWidth={1.5} />
           </Link>
@@ -122,7 +132,7 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="menu-link"
+                className={"menu-link" + (isActive(item.href) ? " is-active" : "")}
                 onClick={() => setOpen(false)}
                 data-cursor-label="GO"
               >
