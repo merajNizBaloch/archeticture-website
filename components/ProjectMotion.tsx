@@ -1,14 +1,18 @@
 "use client";
 
 import { useLayoutEffect } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function ProjectMotion() {
+  const pathname = usePathname();
+
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!pathname.startsWith("/projects/")) return;
 
     const ctx = gsap.context(() => {
       gsap.from(".case-hero-copy > *", {
@@ -57,7 +61,9 @@ export default function ProjectMotion() {
         });
 
       gsap.utils
-        .toArray<HTMLElement>(".case-image-full, .case-gallery-large, .case-gallery-small")
+        .toArray<HTMLElement>(
+          ".case-image-full, .case-gallery-large, .case-gallery-small",
+        )
         .forEach((element) => {
           const image = element.querySelector("img");
 
@@ -91,7 +97,7 @@ export default function ProjectMotion() {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [pathname]);
 
   return null;
 }
