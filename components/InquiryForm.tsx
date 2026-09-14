@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { ArrowUpRight, Copy, Check } from "lucide-react";
+import { ArrowUpRight, Copy, Check, MessageCircle, Mail } from "lucide-react";
 import { site } from "@/lib/site";
 
 export default function InquiryForm() {
@@ -24,9 +24,37 @@ export default function InquiryForm() {
     ].join("\n");
   };
 
+  const copyBrief = async (brief: string) => {
+    try {
+      await navigator.clipboard.writeText(brief);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = brief;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2200);
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const brief = buildBrief(event.currentTarget);
+
+    if (site.whatsapp) {
+      const number = site.whatsapp.replace(/\D/g, "");
+      window.open(
+        `https://wa.me/${number}?text=${encodeURIComponent(brief)}`,
+        "_blank",
+        "noopener,noreferrer",
+      );
+      return;
+    }
 
     if (site.email) {
       const subject = encodeURIComponent("New architecture project inquiry");
@@ -35,25 +63,14 @@ export default function InquiryForm() {
       return;
     }
 
-    const copyBrief = async () => {
-      try {
-        await navigator.clipboard.writeText(brief);
-      } catch {
-        const textarea = document.createElement("textarea");
-        textarea.value = brief;
-        textarea.style.position = "fixed";
-        textarea.style.opacity = "0";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        textarea.remove();
-      }
+    void copyBrief(brief);
+  };
 
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2200);
-    };
-
-    void copyBrief();
+  const prepareEmail = (form: HTMLFormElement) => {
+    const brief = buildBrief(form);
+    const subject = encodeURIComponent("New architecture project inquiry");
+    const body = encodeURIComponent(brief);
+    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -109,29 +126,52 @@ export default function InquiryForm() {
 
       <div className="inquiry-submit-row">
         <p>
-          {site.email
-            ? "Submitting opens your email app with the project brief prepared."
-            : "Final studio email is not configured yet. Submit will copy the complete brief so it is not lost."}
+          {site.whatsapp
+            ? "Send the prepared brief directly on WhatsApp. Your entered details stay in the message for review before sending."
+            : site.email
+              ? "Submitting opens your email app with the project brief prepared."
+              : "Final studio contact details are not configured yet. Submit will copy the complete brief so it is not lost."}
         </p>
 
-        <button type="submit" data-cursor-label="SEND">
-          {site.email ? (
-            <>
-              Prepare email
-              <ArrowUpRight size={19} strokeWidth={1.2} />
-            </>
-          ) : copied ? (
-            <>
-              Brief copied
-              <Check size={19} strokeWidth={1.2} />
-            </>
-          ) : (
-            <>
-              Copy project brief
-              <Copy size={19} strokeWidth={1.2} />
-            </>
+        <div className="inquiry-actions">
+          <button type="submit" data-cursor-label="SEND">
+            {site.whatsapp ? (
+              <>
+                Send on WhatsApp
+                <MessageCircle size={19} strokeWidth={1.2} />
+              </>
+            ) : site.email ? (
+              <>
+                Prepare email
+                <ArrowUpRight size={19} strokeWidth={1.2} />
+              </>
+            ) : copied ? (
+              <>
+                Brief copied
+                <Check size={19} strokeWidth={1.2} />
+              </>
+            ) : (
+              <>
+                Copy project brief
+                <Copy size={19} strokeWidth={1.2} />
+              </>
+            )}
+          </button>
+
+          {site.whatsapp && site.email && (
+            <button
+              type="button"
+              className="inquiry-secondary"
+              onClick={(event) => {
+                const form = event.currentTarget.form;
+                if (form) prepareEmail(form);
+              }}
+            >
+              Email instead
+              <Mail size={18} strokeWidth={1.2} />
+            </button>
           )}
-        </button>
+        </div>
       </div>
     </form>
   );
