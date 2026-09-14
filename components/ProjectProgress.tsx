@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export type ProjectProgressItem = {
   id: string;
@@ -14,7 +14,8 @@ export default function ProjectProgress({
   items: ProjectProgressItem[];
 }) {
   const [active, setActive] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const root = useRef<HTMLElement>(null);
+  const activeRef = useRef(0);
 
   const ids = useMemo(() => items.map((item) => item.id), [items]);
 
@@ -26,7 +27,11 @@ export default function ProjectProgress({
         1,
         document.documentElement.scrollHeight - window.innerHeight,
       );
-      setProgress(Math.min(1, Math.max(0, window.scrollY / max)));
+      const nextProgress = Math.min(1, Math.max(0, window.scrollY / max));
+      root.current?.style.setProperty(
+        "--project-reading-progress",
+        String(nextProgress),
+      );
 
       const marker = window.innerHeight * 0.42;
       let nextActive = 0;
@@ -39,7 +44,11 @@ export default function ProjectProgress({
         }
       });
 
-      setActive(nextActive);
+      if (nextActive !== activeRef.current) {
+        activeRef.current = nextActive;
+        setActive(nextActive);
+      }
+
       raf = 0;
     };
 
@@ -70,9 +79,9 @@ export default function ProjectProgress({
 
   return (
     <aside
+      ref={root}
       className="project-reading-progress"
       aria-label="Project sections"
-      style={{ "--project-reading-progress": progress } as CSSProperties}
     >
       <div className="project-reading-progress-track" aria-hidden="true">
         <span />
