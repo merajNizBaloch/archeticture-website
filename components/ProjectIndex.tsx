@@ -20,59 +20,79 @@ export default function ProjectIndex() {
 
     const viewport = railViewport.current;
     const track = rail.current;
-
     if (!viewport || !track) return;
 
-    const desktop = window.matchMedia("(min-width: 901px)").matches;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    if (!desktop || reduceMotion) return;
+    if (reduceMotion) return;
 
-    const ctx = gsap.context(() => {
-      const distance = () =>
-        Math.max(0, track.scrollWidth - window.innerWidth);
+    const mm = gsap.matchMedia();
 
-      gsap.to(track, {
-        x: () => -distance(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: viewport,
-          start: "top top",
-          end: () => "+=" + Math.max(distance(), window.innerWidth * 1.35),
-          scrub: 0.85,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
+    mm.add(
+      {
+        desktop: "(min-width: 901px)",
+        mobile: "(max-width: 900px)",
+      },
+      (context) => {
+        const isMobile = Boolean(context.conditions?.mobile);
 
-      gsap.from(".project-index-title .index-mask > span", {
-        yPercent: 112,
-        duration: 0.95,
-        stagger: 0.1,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: ".project-index-title",
-          start: "top 78%",
-        },
-      });
+        const ctx = gsap.context(() => {
+          const distance = () =>
+            Math.max(0, track.scrollWidth - window.innerWidth);
 
-      gsap.from(".project-index-card", {
-        y: 48,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.08,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: viewport,
-          start: "top 82%",
-        },
-      });
-    }, viewport);
+          gsap.set(track, { x: 0 });
 
-    return () => ctx.revert();
+          gsap.to(track, {
+            x: () => -distance(),
+            ease: "none",
+            scrollTrigger: {
+              trigger: viewport,
+              start: "top top",
+              end: () =>
+                "+=" +
+                Math.max(
+                  distance() * (isMobile ? 1.08 : 1),
+                  window.innerHeight * (isMobile ? 2.2 : 1.35),
+                ),
+              scrub: isMobile ? 0.45 : 0.85,
+              pin: true,
+              pinSpacing: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          gsap.from(".project-index-title .index-mask > span", {
+            yPercent: 112,
+            duration: isMobile ? 0.78 : 0.95,
+            stagger: 0.1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: ".project-index-title",
+              start: isMobile ? "top 84%" : "top 78%",
+            },
+          });
+
+          gsap.from(".project-index-card", {
+            y: isMobile ? 34 : 48,
+            opacity: 0,
+            duration: isMobile ? 0.65 : 0.8,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: viewport,
+              start: "top 82%",
+            },
+          });
+        }, viewport);
+
+        return () => ctx.revert();
+      },
+    );
+
+    return () => mm.revert();
   }, []);
 
   useEffect(() => {
