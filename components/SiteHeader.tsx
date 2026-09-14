@@ -173,6 +173,35 @@ export default function SiteHeader() {
             </ProjectTransitionLink>
           </div>
 
+          <div className="menu-actions-panel">
+            <Link href="/contact" className="menu-project-cta" onClick={() => setOpen(false)}>
+              Start a project
+              <ArrowUpRight size={18} strokeWidth={1.2} />
+            </Link>
+
+            <div className="menu-social-links">
+              {site.whatsapp && (
+                <a
+                  href={"https://wa.me/" + site.whatsapp.replace(/\D/g, "")}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  WhatsApp
+                </a>
+              )}
+              {site.instagram && (
+                <a href={site.instagram} target="_blank" rel="noreferrer">
+                  Instagram
+                </a>
+              )}
+              {site.linkedin && (
+                <a href={site.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+              )}
+            </div>
+          </div>
+
           <div className="menu-footer">
             <span className="menu-availability">{site.availability}</span>
             <span>{site.location} · {site.year}</span>
