@@ -162,6 +162,16 @@ export default function ProjectIndex() {
                 <span>{project.type}</span>
               </div>
 
+              <div className="project-index-card-mobile-image" aria-hidden="true">
+                <Image
+                  src={project.image}
+                  alt=""
+                  fill
+                  sizes="88vw"
+                  className="cover-image"
+                />
+              </div>
+
               <div className="project-index-card-title">
                 <span>{project.title}</span>
               </div>
