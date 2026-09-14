@@ -63,3 +63,62 @@ npm start
 - add an immersive project index
 - add studio/about and contact pages
 - tune the motion system against the final imagery
+
+
+## Final firm identity
+
+The site now uses one central branding/content file:
+
+```text
+lib/site.ts
+```
+
+Replace these fields when the final firm information is available:
+
+- `name`
+- `shortName`
+- `descriptor`
+- `location`
+- `email`
+- `phone`
+- `address`
+- social links
+- `workingIdentity: false`
+
+The navigation, footer, metadata, Open Graph image and general studio copy all read from this source.
+
+The current geometric `S/01` mark is a temporary working identity. Replace `components/StudioMark.tsx` with the final logo component when the real logo is supplied.
+
+## Project content
+
+Project content lives in:
+
+```text
+lib/projects.ts
+```
+
+Each project currently contains:
+
+- slug
+- project number
+- title
+- location
+- year
+- type
+- area
+- status
+- hero image
+- gallery images
+- project introduction
+- design concept
+
+Replace the temporary Unsplash URLs with the firm's real renders or photography before launch.
+
+## Launch checklist
+
+1. Replace the working firm identity in `lib/site.ts`.
+2. Replace the temporary `StudioMark`.
+3. Replace placeholder projects and imagery in `lib/projects.ts`.
+4. Add the real email/phone/address.
+5. Set the final production domain in Vercel.
+6. Run `npm run build` before deployment.
