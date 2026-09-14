@@ -1,0 +1,149 @@
+"use client";
+
+import Link from "next/link";
+import { Menu, X, ArrowUpRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import gsap from "gsap";
+
+const items = [
+  { label: "Projects", href: "/#projects", number: "01" },
+  { label: "Studio", href: "/#studio", number: "02" },
+  { label: "Services", href: "/#services", number: "03" },
+  { label: "Contact", href: "/#contact", number: "04" },
+];
+
+export default function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  const overlay = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const panel = overlay.current;
+    if (!panel) return;
+
+    if (open) {
+      document.body.style.overflow = "hidden";
+      gsap.killTweensOf(panel);
+      gsap.set(panel, { display: "block" });
+      gsap.fromTo(
+        panel,
+        { clipPath: "inset(0 0 100% 0)" },
+        {
+          clipPath: "inset(0 0 0% 0)",
+          duration: 0.72,
+          ease: "power4.inOut",
+        },
+      );
+      gsap.fromTo(
+        ".menu-link-line > span",
+        { yPercent: 115 },
+        {
+          yPercent: 0,
+          duration: 0.8,
+          stagger: 0.07,
+          delay: 0.28,
+          ease: "power4.out",
+        },
+      );
+      gsap.fromTo(
+        ".menu-footer",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.55, delay: 0.5 },
+      );
+    } else {
+      document.body.style.overflow = "";
+      gsap.killTweensOf(panel);
+      gsap.to(panel, {
+        clipPath: "inset(0 0 100% 0)",
+        duration: 0.55,
+        ease: "power4.inOut",
+        onComplete: () => gsap.set(panel, { display: "none" }),
+      });
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  return (
+    <>
+      <header className="site-header">
+        <Link
+          href="/"
+          className="wordmark"
+          aria-label="Architecture studio home"
+        >
+          <span>STUDIO</span>
+          <span>/ 01</span>
+        </Link>
+
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {items.slice(0, 3).map((item) => (
+            <Link key={item.href} href={item.href}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="header-actions">
+          <Link href="/#contact" className="header-cta">
+            Start a project
+            <ArrowUpRight size={15} strokeWidth={1.5} />
+          </Link>
+
+          <button
+            type="button"
+            className="menu-toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? (
+              <X size={18} strokeWidth={1.5} />
+            ) : (
+              <Menu size={18} strokeWidth={1.5} />
+            )}
+          </button>
+        </div>
+      </header>
+
+      <div ref={overlay} className="menu-overlay" aria-hidden={!open}>
+        <div className="menu-grid">
+          <div className="menu-label">
+            <span>Navigation</span>
+            <span>Studio / 01</span>
+          </div>
+
+          <nav className="menu-links" aria-label="Overlay navigation">
+            {items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="menu-link"
+                onClick={() => setOpen(false)}
+                data-cursor-label="GO"
+              >
+                <span className="menu-link-number">{item.number}</span>
+                <span className="menu-link-line">
+                  <span>{item.label}</span>
+                </span>
+                <ArrowUpRight size={26} strokeWidth={1.1} />
+              </Link>
+            ))}
+          </nav>
+
+          <div className="menu-footer">
+            <span>Architecture · Interiors · Spatial Design</span>
+            <span>Pakistan · 2026</span>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
