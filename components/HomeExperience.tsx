@@ -1,0 +1,509 @@
+"use client";
+
+import Image from "next/image";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const projects = [
+  {
+    number: "01",
+    title: "Courtyard House",
+    location: "Quetta, Pakistan",
+    year: "2026",
+    type: "Residential",
+    image:
+      "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    number: "02",
+    title: "Stone Residence",
+    location: "Islamabad, Pakistan",
+    year: "2025",
+    type: "Residential",
+    image:
+      "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    number: "03",
+    title: "House of Light",
+    location: "Karachi, Pakistan",
+    year: "2025",
+    type: "Residential",
+    image:
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    number: "04",
+    title: "Desert Pavilion",
+    location: "Balochistan, Pakistan",
+    year: "2026",
+    type: "Hospitality",
+    image:
+      "https://images.unsplash.com/photo-1431576901776-e539bd916ba2?auto=format&fit=crop&w=2400&q=88",
+  },
+];
+
+const services = [
+  ["01", "Architecture", "Concept, planning and spatial design"],
+  ["02", "Interior Architecture", "Material, lighting and atmosphere"],
+  ["03", "Planning", "Site strategy and technical coordination"],
+  ["04", "Project Delivery", "Documentation and execution support"],
+];
+
+const process = [
+  ["01", "Observe", "We begin with site, climate, movement and context."],
+  ["02", "Define", "The brief becomes a clear spatial and material strategy."],
+  ["03", "Shape", "Ideas are tested through drawings, models and visual studies."],
+  ["04", "Deliver", "Design intent is carried through detail and construction."],
+];
+
+export default function HomeExperience() {
+  const root = useRef<HTMLElement>(null);
+  const hero = useRef<HTMLElement>(null);
+  const projectSection = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reduceMotion) {
+      gsap.set(".preloader", { display: "none" });
+      gsap.set(".hero-copy-line > span", { yPercent: 0 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.set(".hero-copy-line > span", { yPercent: 120 });
+      gsap.set(".hero-kicker, .hero-footer", { opacity: 0, y: 18 });
+
+      const intro = gsap.timeline({
+        defaults: { ease: "power4.inOut" },
+      });
+
+      intro
+        .to(".preloader-panel", {
+          scaleY: 0,
+          duration: 1.15,
+          stagger: 0.08,
+          transformOrigin: "top center",
+        })
+        .to(
+          ".hero-copy-line > span",
+          {
+            yPercent: 0,
+            duration: 1.05,
+            stagger: 0.08,
+            ease: "power4.out",
+          },
+          "-=0.62",
+        )
+        .to(
+          ".hero-kicker, .hero-footer",
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.08,
+            ease: "power3.out",
+          },
+          "-=0.58",
+        );
+
+      if (hero.current) {
+        gsap.to(".hero-media-inner", {
+          yPercent: 13,
+          scale: 1.08,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hero.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        gsap.to(".hero-copy", {
+          yPercent: 18,
+          opacity: 0.28,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hero.current,
+            start: "35% top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      gsap.utils.toArray<HTMLElement>(".reveal-copy").forEach((element) => {
+        gsap.from(element, {
+          y: 72,
+          opacity: 0,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: element,
+            start: "top 82%",
+          },
+        });
+      });
+
+      if (projectSection.current) {
+        const layers = gsap.utils.toArray<HTMLElement>(
+          ".project-layer",
+          projectSection.current,
+        );
+        const meta = gsap.utils.toArray<HTMLElement>(
+          ".project-meta",
+          projectSection.current,
+        );
+
+        gsap.set(layers.slice(1), {
+          clipPath: "inset(100% 0% 0% 0%)",
+        });
+        gsap.set(meta.slice(1), {
+          opacity: 0,
+          y: 28,
+        });
+
+        const timeline = gsap.timeline();
+
+        for (let index = 1; index < layers.length; index += 1) {
+          const at = index - 1;
+
+          timeline
+            .to(
+              meta[index - 1],
+              {
+                opacity: 0,
+                y: -24,
+                duration: 0.22,
+              },
+              at,
+            )
+            .to(
+              layers[index],
+              {
+                clipPath: "inset(0% 0% 0% 0%)",
+                duration: 0.78,
+                ease: "none",
+              },
+              at,
+            )
+            .to(
+              meta[index],
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.28,
+              },
+              at + 0.5,
+            );
+        }
+
+        ScrollTrigger.create({
+          trigger: projectSection.current,
+          start: "top top",
+          end: "bottom bottom",
+          animation: timeline,
+          scrub: 0.8,
+        });
+
+        gsap.to(".project-progress-fill", {
+          scaleX: 1,
+          ease: "none",
+          transformOrigin: "left center",
+          scrollTrigger: {
+            trigger: projectSection.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+          },
+        });
+      }
+
+      gsap.utils.toArray<HTMLElement>(".service-row").forEach((row) => {
+        gsap.from(row, {
+          opacity: 0,
+          y: 32,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: row,
+            start: "top 88%",
+          },
+        });
+      });
+    }, root);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <main ref={root} className="site-shell">
+      <div className="preloader" aria-hidden="true">
+        <div className="preloader-panel" />
+        <div className="preloader-panel" />
+        <div className="preloader-panel" />
+      </div>
+
+      <header className="site-header">
+        <a href="#" className="wordmark" aria-label="Architecture studio home">
+          <span>STUDIO</span>
+          <span>/ 01</span>
+        </a>
+
+        <nav className="desktop-nav" aria-label="Main navigation">
+          <a href="#projects">Projects</a>
+          <a href="#studio">Studio</a>
+          <a href="#services">Services</a>
+        </nav>
+
+        <a href="#contact" className="header-cta">
+          Start a project
+          <ArrowUpRight size={15} strokeWidth={1.5} />
+        </a>
+      </header>
+
+      <section ref={hero} className="hero">
+        <div className="hero-media" aria-hidden="true">
+          <div className="hero-media-inner">
+            <Image
+              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2600&q=90"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="cover-image"
+            />
+          </div>
+          <div className="hero-shade" />
+        </div>
+
+        <div className="hero-kicker">
+          <span>Architecture / Interiors</span>
+          <span>Pakistan · 2026</span>
+        </div>
+
+        <div className="hero-copy">
+          <h1>
+            <span className="hero-copy-line">
+              <span>FORM</span>
+            </span>
+            <span className="hero-copy-line">
+              <span>LIGHT</span>
+            </span>
+            <span className="hero-copy-line hero-copy-line-indent">
+              <span>PLACE</span>
+            </span>
+          </h1>
+        </div>
+
+        <div className="hero-footer">
+          <p>
+            Spaces shaped around climate, material,
+            <br />
+            context and the people who inhabit them.
+          </p>
+
+          <div className="scroll-cue">
+            <span>Scroll to explore</span>
+            <ArrowDown size={16} strokeWidth={1.4} />
+          </div>
+        </div>
+      </section>
+
+      <section id="studio" className="manifesto section-pad">
+        <div className="section-index">
+          <span>01</span>
+          <span>Studio</span>
+        </div>
+
+        <div className="manifesto-copy reveal-copy">
+          <p className="eyebrow">A practice of restraint and clarity</p>
+          <h2>
+            We design spaces that feel
+            <em> inevitable </em>
+            to their place.
+          </h2>
+        </div>
+
+        <div className="manifesto-note reveal-copy">
+          <p>
+            Architecture is not an object placed on a site. It is a response to
+            light, climate, movement, memory and construction. Every project is
+            developed from these conditions outward.
+          </p>
+        </div>
+      </section>
+
+      <section id="projects" ref={projectSection} className="projects-shell">
+        <div className="projects-sticky">
+          <div className="projects-topline">
+            <span>02 / Selected projects</span>
+            <span>Scroll sequence</span>
+          </div>
+
+          <div className="project-stage">
+            {projects.map((project, index) => (
+              <div className="project-layer" key={project.title}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="100vw"
+                  className="cover-image project-image"
+                  priority={index === 0}
+                />
+                <div className="project-image-shade" />
+              </div>
+            ))}
+
+            <div className="project-meta-wrap">
+              {projects.map((project) => (
+                <article className="project-meta" key={project.number}>
+                  <div className="project-number">{project.number}</div>
+                  <h3>{project.title}</h3>
+                  <div className="project-details">
+                    <span>{project.location}</span>
+                    <span>{project.type}</span>
+                    <span>{project.year}</span>
+                  </div>
+                  <span className="project-link">
+                    View project
+                    <ArrowUpRight size={17} strokeWidth={1.4} />
+                  </span>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="project-progress">
+            <div className="project-progress-fill" />
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="services section-pad">
+        <div className="section-index">
+          <span>03</span>
+          <span>Capabilities</span>
+        </div>
+
+        <div className="services-heading reveal-copy">
+          <p className="eyebrow">From first line to built space</p>
+          <h2>Architecture as a complete process.</h2>
+        </div>
+
+        <div className="services-list">
+          {services.map(([number, title, note]) => (
+            <div className="service-row" key={number}>
+              <span className="service-number">{number}</span>
+              <h3>{title}</h3>
+              <p>{note}</p>
+              <ArrowUpRight size={22} strokeWidth={1.2} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="statement">
+        <div className="statement-media">
+          <Image
+            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2400&q=88"
+            alt="Architectural interior"
+            fill
+            sizes="100vw"
+            className="cover-image"
+          />
+        </div>
+        <div className="statement-overlay" />
+
+        <div className="statement-copy reveal-copy">
+          <p>BUILDING WITH PURPOSE</p>
+          <h2>
+            Less noise.
+            <br />
+            More meaning.
+          </h2>
+        </div>
+      </section>
+
+      <section className="numbers section-pad">
+        <div className="section-index">
+          <span>04</span>
+          <span>Practice</span>
+        </div>
+
+        <div className="numbers-grid reveal-copy">
+          <div>
+            <strong>12+</strong>
+            <span>Years of practice</span>
+          </div>
+          <div>
+            <strong>85+</strong>
+            <span>Projects developed</span>
+          </div>
+          <div>
+            <strong>06</strong>
+            <span>Cities worked in</span>
+          </div>
+          <div>
+            <strong>420K</strong>
+            <span>Sq. ft. designed</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="process section-pad">
+        <div className="section-index">
+          <span>05</span>
+          <span>Process</span>
+        </div>
+
+        <div className="process-title reveal-copy">
+          <p className="eyebrow">A disciplined design sequence</p>
+          <h2>From observation to occupation.</h2>
+        </div>
+
+        <div className="process-grid">
+          {process.map(([number, title, note]) => (
+            <article className="process-card reveal-copy" key={number}>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{note}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <footer id="contact" className="contact">
+        <div className="contact-top">
+          <span>06 / Contact</span>
+          <span>New commissions · 2026</span>
+        </div>
+
+        <div className="contact-copy reveal-copy">
+          <p>Have a site or an idea?</p>
+          <a href="mailto:studio@example.com">
+            Let&apos;s build
+            <br />
+            something lasting.
+            <ArrowUpRight size={64} strokeWidth={0.8} />
+          </a>
+        </div>
+
+        <div className="contact-bottom">
+          <span>STUDIO / 01</span>
+          <span>Architecture · Interiors · Spatial Design</span>
+          <span>Pakistan</span>
+        </div>
+      </footer>
+    </main>
+  );
+}
