@@ -227,3 +227,21 @@
     transform: none !important;
   }
 }
+
+
+/* Project index title masks */
+.project-index-title .index-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.project-index-title .index-mask > span {
+  display: block;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-index-title .index-mask > span {
+    transform: none !important;
+  }
+}
