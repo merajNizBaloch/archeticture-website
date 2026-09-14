@@ -128,6 +128,7 @@ export default function ProjectTransitionLink({
         aria-busy={transitioning}
         onPointerEnter={() => router.prefetch(href)}
         onTouchStart={() => router.prefetch(href)}
+        onFocus={() => router.prefetch(href)}
         onClick={handleClick}
       >
         {children}
