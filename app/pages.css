@@ -1,0 +1,650 @@
+/* =========================================================
+   INNER PAGES
+   ========================================================= */
+
+.inner-page {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.inner-hero {
+  min-height: 92svh;
+  padding: 6rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.inner-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.67rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.inner-hero-title {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.35fr) 1fr;
+  gap: 3rem;
+  align-items: end;
+}
+
+.inner-hero-title p {
+  margin: 0 0 1.1rem;
+  max-width: 18rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.inner-hero-title h1,
+.contact-page-title h1 {
+  margin: 0;
+  font-size: clamp(6rem, 14vw, 14rem);
+  font-weight: 500;
+  line-height: 0.73;
+  letter-spacing: -0.09em;
+}
+
+/* =========================================================
+   PROJECT ARCHIVE
+   ========================================================= */
+
+.archive-section {
+  padding: 0 2rem 10rem;
+}
+
+.archive-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.archive-filters button {
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+.archive-filters button:hover,
+.archive-filters button.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6rem 1rem;
+}
+
+.archive-card {
+  min-width: 0;
+}
+
+.archive-card-wide {
+  grid-column: 1 / -1;
+}
+
+.archive-card-media {
+  position: relative;
+  min-height: 70svh;
+  overflow: hidden;
+  background: #d7d3ca;
+}
+
+.archive-card-wide .archive-card-media {
+  min-height: 90svh;
+}
+
+.archive-card-media img {
+  transform: scale(1.015);
+  transition: transform 700ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.archive-card:hover .archive-card-media img {
+  transform: scale(1.055);
+}
+
+.archive-card-number {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  width: 2.7rem;
+  height: 2.7rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.82);
+  color: white;
+  font-size: 0.66rem;
+  backdrop-filter: blur(12px);
+}
+
+.archive-card-info {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.archive-card-info h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 4.4rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.archive-card-info p {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.archive-card-meta {
+  min-width: 10rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem 1.5rem;
+  align-content: start;
+  color: var(--muted);
+  font-size: 0.67rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.archive-card-meta svg {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  transition: transform 350ms ease;
+}
+
+.archive-card:hover .archive-card-meta svg {
+  transform: rotate(45deg);
+}
+
+/* =========================================================
+   STUDIO PAGE
+   ========================================================= */
+
+.studio-intro,
+.studio-principles,
+.studio-services,
+.studio-process {
+  padding: 8rem 2rem;
+}
+
+.studio-intro-label,
+.studio-section-head {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.studio-section-head {
+  grid-template-columns: 1fr auto;
+}
+
+.studio-intro-copy {
+  width: min(82rem, 88%);
+  margin: 5rem 0 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 0.45fr);
+  gap: 7vw;
+  align-items: end;
+}
+
+.studio-intro-copy h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.5rem, 6.7vw, 7.2rem);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+}
+
+.studio-intro-copy p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.studio-image {
+  position: relative;
+  min-height: 100svh;
+  margin: 0 2rem;
+  overflow: hidden;
+  background: #d8d4cb;
+}
+
+.studio-principles-grid,
+.studio-process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 5rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.studio-principles-grid article,
+.studio-process-grid article {
+  min-height: 25rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+}
+
+.studio-principles-grid article:last-child,
+.studio-process-grid article:last-child {
+  border-right: 0;
+}
+
+.studio-principles-grid article > span,
+.studio-process-grid article > span {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.studio-principles-grid h3,
+.studio-process-grid h3 {
+  margin: auto 0 1rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 4vw, 4.4rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.studio-principles-grid p,
+.studio-process-grid p {
+  max-width: 18rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.studio-services-list {
+  margin-top: 5rem;
+}
+
+.studio-services-list article {
+  min-height: 8.5rem;
+  display: grid;
+  grid-template-columns: 4rem 1.25fr 0.65fr;
+  gap: 2rem;
+  align-items: center;
+  border-top: 1px solid var(--line);
+}
+
+.studio-services-list article:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.studio-services-list article > span {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.studio-services-list h3 {
+  margin: 0;
+  font-size: clamp(2.4rem, 4.8vw, 5rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+}
+
+.studio-services-list p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* =========================================================
+   CONTACT PAGE
+   ========================================================= */
+
+.contact-page {
+  background: #111;
+  color: var(--white);
+}
+
+.contact-page .site-header {
+  color: var(--white);
+}
+
+.contact-page-hero {
+  min-height: 82svh;
+  padding: 6rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact-page-hero .inner-hero-top {
+  border-color: rgba(255, 255, 255, 0.26);
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.contact-page-title p {
+  margin: 0 0 1.25rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-page-body {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.35fr) 1fr;
+  gap: 6vw;
+  padding: 3rem 2rem 8rem;
+}
+
+.contact-page-sidebar {
+  align-self: start;
+  position: sticky;
+  top: 7rem;
+}
+
+.contact-page-sidebar > div {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.contact-page-sidebar > div:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.contact-page-sidebar span {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.contact-page-sidebar strong,
+.contact-page-sidebar a {
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.inquiry-form {
+  min-width: 0;
+}
+
+.inquiry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 1.2rem;
+}
+
+.inquiry-form label {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.1rem 0 1.35rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.inquiry-form label > span {
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.inquiry-form input,
+.inquiry-form select,
+.inquiry-form textarea {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  resize: vertical;
+  background: transparent;
+  color: var(--white);
+  font-size: clamp(1.45rem, 2.2vw, 2.3rem);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.inquiry-form select {
+  appearance: none;
+}
+
+.inquiry-form option {
+  background: #111;
+}
+
+.inquiry-form input::placeholder,
+.inquiry-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.inquiry-brief {
+  margin-top: 1.2rem;
+}
+
+.inquiry-submit-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: end;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.inquiry-submit-row p {
+  max-width: 30rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.inquiry-submit-row button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.3rem;
+  border: 1px solid var(--white);
+  border-radius: 999px;
+  background: var(--white);
+  color: #111;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease;
+}
+
+.inquiry-submit-row button:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+/* =========================================================
+   RESPONSIVE INNER PAGES
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .inner-hero,
+  .contact-page-hero {
+    min-height: 78svh;
+    padding: 5.5rem 1.1rem 1.1rem;
+  }
+
+  .inner-hero-title {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .inner-hero-title h1,
+  .contact-page-title h1 {
+    font-size: clamp(5rem, 18vw, 9rem);
+  }
+
+  .archive-section,
+  .studio-intro,
+  .studio-principles,
+  .studio-services,
+  .studio-process {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+
+  .archive-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .archive-card-wide {
+    grid-column: auto;
+  }
+
+  .archive-card-media,
+  .archive-card-wide .archive-card-media {
+    min-height: 72svh;
+  }
+
+  .studio-intro-copy {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .studio-image {
+    min-height: 75svh;
+    margin: 0 1.1rem;
+  }
+
+  .studio-principles-grid,
+  .studio-process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .studio-principles-grid article:nth-child(2),
+  .studio-process-grid article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .studio-principles-grid article:nth-child(-n + 2),
+  .studio-process-grid article:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .studio-services-list article {
+    grid-template-columns: 3rem 1fr;
+  }
+
+  .studio-services-list p {
+    grid-column: 2;
+    padding-bottom: 1.5rem;
+  }
+
+  .contact-page-body {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    padding: 2rem 1.1rem 6rem;
+  }
+
+  .contact-page-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .inner-hero-title h1,
+  .contact-page-title h1 {
+    font-size: 4.9rem;
+  }
+
+  .archive-card-media,
+  .archive-card-wide .archive-card-media {
+    min-height: 58svh;
+  }
+
+  .archive-card-info {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-card-meta {
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .archive-card-meta svg {
+    grid-row: auto;
+    grid-column: auto;
+    justify-self: end;
+  }
+
+  .studio-section-head {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+
+  .studio-principles-grid,
+  .studio-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-principles-grid article,
+  .studio-process-grid article,
+  .studio-principles-grid article:nth-child(2),
+  .studio-process-grid article:nth-child(2) {
+    min-height: 18rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .studio-principles-grid article:last-child,
+  .studio-process-grid article:last-child {
+    border-bottom: 0;
+  }
+
+  .inquiry-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inquiry-submit-row {
+    grid-template-columns: 1fr;
+  }
+
+  .inquiry-submit-row button {
+    justify-self: start;
+  }
+}
