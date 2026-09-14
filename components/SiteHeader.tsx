@@ -1,11 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import StudioMark from "@/components/StudioMark";
+import ProjectTransitionLink from "@/components/ProjectTransitionLink";
+import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 const items = [
@@ -145,8 +148,33 @@ export default function SiteHeader() {
             ))}
           </nav>
 
+          <div className="menu-feature">
+            <ProjectTransitionLink
+              href={"/projects/" + projects[0].slug}
+              image={projects[0].image}
+              title={projects[0].title}
+              className="menu-feature-link"
+              cursorLabel="VIEW"
+            >
+              <div className="menu-feature-media">
+                <Image
+                  src={projects[0].image}
+                  alt=""
+                  fill
+                  sizes="120px"
+                  className="cover-image"
+                />
+              </div>
+              <div className="menu-feature-copy">
+                <span>Featured project</span>
+                <strong>{projects[0].title}</strong>
+                <span>{projects[0].location}</span>
+              </div>
+            </ProjectTransitionLink>
+          </div>
+
           <div className="menu-footer">
-            <span>{site.descriptor}</span>
+            <span className="menu-availability">{site.availability}</span>
             <span>{site.location} · {site.year}</span>
           </div>
         </div>
