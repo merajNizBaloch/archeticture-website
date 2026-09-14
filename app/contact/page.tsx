@@ -56,6 +56,19 @@ export default function ContactPage() {
             </div>
           )}
 
+          {site.whatsapp && (
+            <div>
+              <span>WhatsApp</span>
+              <a
+                href={"https://wa.me/" + site.whatsapp.replace(/\D/g, "")}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Start a conversation
+              </a>
+            </div>
+          )}
+
           {site.address && (
             <div>
               <span>Address</span>
